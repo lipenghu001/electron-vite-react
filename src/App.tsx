@@ -3,12 +3,15 @@ import UpdateElectron from '@/components/update'
 import logoVite from './assets/logo-vite.svg'
 import logoElectron from './assets/logo-electron.svg'
 import './App.css'
-
+import { ipcRenderer } from 'electron'
 function App() {
   const [count, setCount] = useState(0)
-  const handleClick = () => {
+  const handleClick = async () => {
     // debugger;
     setCount((count) => count + 1)
+    // 向主进程发个消息
+    const result = await window.ipcRenderer.invoke('click-count')
+    console.log('[renderer] receive click-count-result:', result)
   }
   return (
     <div className='App'>

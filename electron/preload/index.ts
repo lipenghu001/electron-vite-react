@@ -16,6 +16,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   },
   invoke(...args: Parameters<typeof ipcRenderer.invoke>) {
     const [channel, ...omit] = args
+    console.log('[preload] invoke', channel, omit)
     return ipcRenderer.invoke(channel, ...omit)
   },
 

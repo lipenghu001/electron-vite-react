@@ -77,6 +77,11 @@ async function createWindow() {
     return { action: 'deny' }
   })
 
+  ipcMain.handle('click-count', async () => {
+    console.log('[Main-process] receive click-count')
+    return '123'
+  })
+
   // Auto update
   update(win)
 }
