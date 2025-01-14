@@ -6,6 +6,10 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const handleClick = () => {
+    // debugger;
+    setCount((count) => count + 1)
+  }
   return (
     <div className='App'>
       <div className='logo-box'>
@@ -16,7 +20,7 @@ function App() {
       </div>
       <h1>Electron + Vite + React</h1>
       <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={handleClick}>
           count is {count}
         </button>
         <p>
