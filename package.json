@@ -1,9 +1,9 @@
 {
   "name": "electron-vite-react",
-  "version": "2.2.0",
+  "version": "1.0.1",
   "main": "dist-electron/main/index.js",
-  "description": "Electron Vite React boilerplate.",
-  "author": "草鞋没号 <308487730@qq.com>",
+  "description": "electron-vite-react",
+  "author": "lipenghu001",
   "license": "MIT",
   "private": true,
   "debug": {
@@ -17,7 +17,8 @@
     "build": "tsc && vite build && electron-builder",
     "preview": "vite preview",
     "pretest": "vite build --mode=test",
-    "test": "vitest run"
+    "test": "vitest run",
+    "release": "npm run build && electron-builder --publish always"
   },
   "dependencies": {
     "electron-updater": "^6.3.9"
@@ -40,5 +41,9 @@
     "vite-plugin-electron": "^0.29.0",
     "vite-plugin-electron-renderer": "^0.14.6",
     "vitest": "^2.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lipenghu001/electron-vite-react.git"
   }
 }
