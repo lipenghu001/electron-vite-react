@@ -26,6 +26,13 @@ export function update(win: Electron.BrowserWindow) {
     win.webContents.send('update-can-available', { update: false, version: app.getVersion(), newVersion: arg?.version })
   })
 
+  // Windows 特定的处理
+  if (process.platform === 'win32') {
+    autoUpdater.on('download-progress', (progressObj: ProgressInfo) => {
+      win.webContents.send('download-progress', progressObj)
+    })
+  }
+
   // Checking for updates
   ipcMain.handle('check-update', async () => {
     if (!app.isPackaged) {

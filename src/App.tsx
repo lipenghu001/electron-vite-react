@@ -12,6 +12,7 @@ function App() {
     // 向主进程发个消息
     const result = await window.ipcRenderer.invoke('click-count')
     console.log('[renderer] receive click-count-result:', result)
+    
   }
   return (
     <div className='App'>

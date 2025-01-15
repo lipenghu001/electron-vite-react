@@ -14,11 +14,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && electron-builder",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "pretest": "vite build --mode=test",
     "test": "vitest run",
-    "release": "npm run build && electron-builder --publish always"
+    "release": "npm run build && electron-builder --publish always",
+    "build:mac": "npm run build && electron-builder --mac",
+    "build:win": "npm run build && electron-builder --win --x64 --config",
+    "build:all": "npm run build && electron-builder -mw",
+    "release:all": "npm run build && electron-builder -mw --publish always"
   },
   "dependencies": {
     "electron-updater": "^6.3.9"
