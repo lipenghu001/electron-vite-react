@@ -14,13 +14,10 @@
     "target": [
       {
         "target": "nsis",
-        "arch": [
-          "x64"
-        ]
+        "arch": ["ia32", "x64"]
       }
     ],
-    "artifactName": "ElectronViteReact-Windows-${version}-Setup.${ext}",
-    "executableName": "ElectronViteReact"
+    "artifactName": "ElectronViteReact-Windows-${version}-Setup.${ext}"
   },
   "nsis": {
     "oneClick": false,

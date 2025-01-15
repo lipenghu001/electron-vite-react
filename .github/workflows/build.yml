@@ -7,22 +7,21 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: write
+  actions: write
+
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [windows-latest]
-        node-version: [18.x]
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
     
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 18
         cache: 'npm'
     
     - name: Install dependencies
@@ -40,5 +39,6 @@ jobs:
         files: release/**/*.exe
         draft: false
         prerelease: false
+        generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
