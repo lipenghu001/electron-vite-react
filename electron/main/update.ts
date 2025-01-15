@@ -15,6 +15,12 @@ export function update(win: Electron.BrowserWindow) {
   autoUpdater.disableWebInstaller = false
   autoUpdater.allowDowngrade = false
 
+  // 添加错误处理
+  autoUpdater.on('error', (error: Error) => {
+    console.error('Update error:', error)
+    win.webContents.send('update-error', { message: error.message, error })
+  })
+
   // start check
   autoUpdater.on('checking-for-update', function () { })
   // update available
