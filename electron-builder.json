@@ -10,6 +10,12 @@
     "dist-electron",
     "dist"
   ],
+  "mac": {
+    "artifactName": "${productName}_${version}.${ext}",
+    "target": [
+      "dmg"
+    ]
+  },
   "win": {
     "target": [
       {
