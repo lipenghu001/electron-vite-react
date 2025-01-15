@@ -2,17 +2,10 @@ name: Build
 
 on:
   push:
-    branches: [main]
-    paths-ignore:
-      - "**.md"
-      - "**.spec.js"
-      - ".idea"
-      - ".vscode"
-      - ".dockerignore"
-      - "Dockerfile"
-      - ".gitignore"
-      - ".github/**"
-      - "!.github/workflows/build.yml"
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -20,28 +13,28 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [windows-latest]
+        node-version: [18.x]
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm install
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+    - name: Build
+      run: npm run build:win
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Build Release Files
-        run: npm run build
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: release_on_${{ matrix. os }}
-          path: release/
-          retention-days: 5
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: windows-installer
+        path: release/**/*.exe
